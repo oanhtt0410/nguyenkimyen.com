@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+  <url>
+    <loc>https://nguyenkimyen.com/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://nguyenkimyen.com/assets/img/nguyen-yen-chan-dung.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://nguyenkimyen.com/tu-van-phap-luat/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://nguyenkimyen.com/assets/img/nguyen-yen-chan-dung.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://nguyenkimyen.com/suc-khoe-chu-dong/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://nguyenkimyen.com/assets/img/suc-khoe-hero.jpg</image:loc>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://nguyenkimyen.com/assets/video/dung-phu-long-chinh-minh-poster.jpg</video:thumbnail_loc>
+      <video:title>Đừng phụ lòng chính mình – Nguyễn Yến</video:title>
+      <video:description>Ca khúc Nguyễn Yến gửi tới những người phụ nữ đã dành trọn năm tháng cho gia đình và công việc: hãy chăm sóc sức khỏe, bình an và niềm vui của chính mình.</video:description>
+      <video:content_loc>https://nguyenkimyen.com/assets/video/dung-phu-long-chinh-minh.mp4</video:content_loc>
+      <video:duration>304</video:duration>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://nguyenkimyen.com/hoc-ung-dung-ai/</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://nguyenkimyen.com/assets/img/ai-hero.jpg</image:loc>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://nguyenkimyen.com/assets/video/khong-phai-tinh-co-poster.jpg</video:thumbnail_loc>
+      <video:title>Không phải tình cờ – Nguyễn Thị Yến tặng thầy Trần Khánh Tư</video:title>
+      <video:description>Ca khúc Nguyễn Thị Yến viết tặng thầy Trần Khánh Tư, người thầy trẻ đồng hành trên hành trình học AI.</video:description>
+      <video:content_loc>https://nguyenkimyen.com/assets/video/khong-phai-tinh-co.mp4</video:content_loc>
+      <video:duration>259</video:duration>
+    </video:video>
+  </url>
+</urlset>

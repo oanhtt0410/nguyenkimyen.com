@@ -1,0 +1,16 @@
+.DS_Store
+.cursor/
+
+# Không đưa lên web công khai
+google-apps-script/
+HUONG-DAN-CAI-DAT.md
+.htaccess
+
+# Bản nháp và phương án logo cũ
+assets/img/logo/chatgpt/
+assets/img/logo/chu-ky/
+assets/img/logo/cu/
+assets/img/logo/ban-A/
+assets/img/logo/logo-phuong-an-*.png
+assets/img/logo/so-sanh-*.png
+assets/img/logo/xem-truoc-*.png

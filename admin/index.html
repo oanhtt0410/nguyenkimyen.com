@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; base-uri 'self'; form-action 'self'; object-src 'none'">
+  <title>CRM khách đăng ký — Nguyễn Yến</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Serif:wght@600;700&display=swap">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div id="demo-banner" class="banner banner--demo" role="note" hidden>
+    <strong>Chế độ xem thử – dữ liệu mẫu, chưa kết nối Google Sheet.</strong>
+    <span>Xem HUONG-DAN-CAI-DAT.md để kết nối.</span>
+  </div>
+
+  <!-- ĐĂNG NHẬP -->
+  <main id="login-view" class="login" hidden>
+    <form id="login-form" class="login__card" novalidate>
+      <div class="login__brand">
+        <img class="login__logo" src="../assets/img/logo/logo-nguyen-yen-ngang-480.png" srcset="../assets/img/logo/logo-nguyen-yen-ngang-480.png 1x, ../assets/img/logo/logo-nguyen-yen-ngang-960.png 2x" width="480" height="159" alt="Nguyễn Yến – Sống chủ động">
+      </div>
+      <h1 class="login__title">CRM khách đăng ký</h1>
+      <p class="muted">Trang nội bộ. Vui lòng đăng nhập để xem khách và số liệu truy cập.</p>
+
+      <label class="field">
+        <span class="field__label">Tài khoản</span>
+        <input id="login-user" name="username" type="text" autocomplete="username" autocapitalize="off" spellcheck="false" maxlength="50" required>
+      </label>
+
+      <div class="field">
+        <label class="field__label" for="login-pass">Mật khẩu</label>
+        <div class="pw">
+          <input id="login-pass" name="password" type="password" autocomplete="current-password" maxlength="200" required>
+          <button id="login-toggle" type="button" class="btn btn--ghost pw__toggle" aria-controls="login-pass" aria-pressed="false">Hiện</button>
+        </div>
+      </div>
+
+      <label class="field">
+        <span class="field__label">Tên người xử lý <span class="muted">(không bắt buộc)</span></span>
+        <input id="login-name" name="nickname" type="text" autocomplete="nickname" maxlength="50" placeholder="Ví dụ: Yên">
+        <span class="field__hint">Ghi vào cột “Người cập nhật” và Lịch sử khi bạn đổi trạng thái.</span>
+      </label>
+
+      <p id="login-error" class="alert alert--error" role="alert" hidden></p>
+      <p id="login-info" class="alert alert--info" role="status" hidden></p>
+
+      <button id="login-submit" type="submit" class="btn btn--primary btn--block">Đăng nhập</button>
+      <p class="muted small">Phiên đăng nhập có hiệu lực 12 giờ, chỉ lưu trong tab này và tự xóa khi đóng tab.</p>
+    </form>
+  </main>
+
+  <!-- BẢNG ĐIỀU KHIỂN -->
+  <div id="app-view" hidden>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <div class="brand">
+          <img class="brand__logo" src="../assets/img/logo/logo-nguyen-yen-nen-toi.png" width="1200" height="396" alt="Nguyễn Yến – Sống chủ động">
+          <p class="brand__sub">CRM khách<br>đăng ký</p>
+        </div>
+        <div class="topbar__actions">
+          <span class="user" id="user-name"></span>
+          <div class="textsize" role="group" aria-label="Cỡ chữ">
+            <span class="textsize__label">Cỡ chữ:</span>
+            <button type="button" class="textsize__btn" data-size="md" aria-pressed="true">Vừa</button>
+            <button type="button" class="textsize__btn" data-size="lg" aria-pressed="false">To</button>
+          </div>
+          <button id="btn-refresh" type="button" class="btn btn--ghost">Làm mới</button>
+          <a id="btn-sheet" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" hidden>Mở Google Sheet</a>
+          <button id="btn-logout" type="button" class="btn btn--ghost">Đăng xuất</button>
+        </div>
+      </div>
+      <nav class="mainnav" aria-label="Các mục">
+        <div class="mainnav__inner" role="tablist">
+          <button type="button" class="mainnav__tab" role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-panel="overview">Tổng quan</button>
+          <button type="button" class="mainnav__tab" role="tab" id="tab-leads" aria-controls="panel-leads" aria-selected="false" data-panel="leads">Khách<span class="hide-sm"> đăng ký</span> <span class="count" id="count-leads">0</span></button>
+          <button type="button" class="mainnav__tab" role="tab" id="tab-dups" aria-controls="panel-dups" aria-selected="false" data-panel="dups"><span class="hide-sm">Đăng ký trùng</span><span class="show-sm">Trùng</span> <span class="count" id="count-dups">0</span></button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <p id="app-error" class="alert alert--error" role="alert" hidden></p>
+      <div id="alerts" class="alerts" aria-live="polite"></div>
+
+      <!-- TỔNG QUAN -->
+      <section id="panel-overview" class="panel" role="tabpanel" aria-labelledby="tab-overview">
+        <div class="page-head">
+          <h1 class="page-title">Tổng quan</h1>
+          <div class="seg" role="group" aria-label="Khoảng thời gian">
+            <button type="button" class="seg__btn" data-range="today" aria-pressed="false">Hôm nay</button>
+            <button type="button" class="seg__btn" data-range="7" aria-pressed="false">7 ngày</button>
+            <button type="button" class="seg__btn" data-range="30" aria-pressed="true">30 ngày</button>
+            <button type="button" class="seg__btn" data-range="all" aria-pressed="false">Tất cả</button>
+          </div>
+        </div>
+        <p class="muted sync" id="sync-overview" aria-live="polite"></p>
+
+        <h2 class="section-title">Việc cần làm</h2>
+        <div class="bigcards" id="big-cards"></div>
+
+        <section class="card-box">
+          <div class="card-box__head">
+            <h2 class="card-box__title">Khách mới nhất</h2>
+            <button type="button" class="btn btn--ghost btn--sm" id="latest-all">Xem tất cả khách</button>
+          </div>
+          <div id="latest"></div>
+        </section>
+
+        <h2 class="section-title">Truy cập website</h2>
+        <div class="kpis" id="kpis"></div>
+
+        <section class="card-box">
+          <div class="card-box__head">
+            <h2 class="card-box__title">Theo ngày</h2>
+            <p class="legend"><span class="legend__dot legend__dot--v"></span>Khách truy cập <span class="legend__dot legend__dot--l"></span>Đăng ký</p>
+          </div>
+          <div id="chart-days" class="daychart"></div>
+        </section>
+
+        <div class="grid2">
+          <section class="card-box">
+            <h2 class="card-box__title">Phễu chuyển đổi</h2>
+            <p class="muted small">Tính theo số khách (mỗi người đếm một lần); % so với tổng khách truy cập.</p>
+            <div id="funnel" class="funnel"></div>
+          </section>
+          <section class="card-box">
+            <h2 class="card-box__title">Nguồn truy cập</h2>
+            <div id="t-sources"></div>
+          </section>
+        </div>
+
+        <div class="grid2">
+          <section class="card-box">
+            <h2 class="card-box__title">Chiến dịch (utm_campaign)</h2>
+            <div id="t-campaigns"></div>
+          </section>
+          <section class="card-box">
+            <h2 class="card-box__title">Thiết bị</h2>
+            <div id="t-devices"></div>
+          </section>
+        </div>
+
+        <section class="card-box">
+          <h2 class="card-box__title">Theo trang / lĩnh vực</h2>
+          <div id="t-pages"></div>
+        </section>
+
+        <div class="grid2">
+          <section class="card-box">
+            <h2 class="card-box__title">Vị trí nút “Đăng ký” được bấm</h2>
+            <div id="t-cta"></div>
+          </section>
+          <section class="card-box">
+            <h2 class="card-box__title">Video được xem</h2>
+            <div id="t-videos"></div>
+          </section>
+        </div>
+      </section>
+
+      <!-- KHÁCH ĐĂNG KÝ -->
+      <section id="panel-leads" class="panel" role="tabpanel" aria-labelledby="tab-leads" hidden>
+        <div class="page-head">
+          <h1 class="page-title">Khách đăng ký</h1>
+          <p class="muted sync" id="sync-leads" aria-live="polite"></p>
+        </div>
+
+        <section class="filters" aria-label="Bộ lọc">
+          <div class="filters__search">
+            <label class="field field--search">
+              <span class="field__label">Tìm khách</span>
+              <input id="f-search" type="search" placeholder="Tên, số điện thoại, email…" autocomplete="off">
+            </label>
+            <button id="btn-csv" type="button" class="btn btn--ghost">Xuất CSV</button>
+          </div>
+          <div class="chipgroup">
+            <span class="chipgroup__label" id="lbl-status">Trạng thái:</span>
+            <div class="chips" id="f-status-chips" role="group" aria-labelledby="lbl-status"></div>
+          </div>
+          <div class="chipgroup">
+            <span class="chipgroup__label" id="lbl-field">Lĩnh vực:</span>
+            <div class="chips" role="group" aria-labelledby="lbl-field">
+              <button type="button" class="chip tab" data-tab="all" aria-pressed="true">Tất cả</button>
+              <button type="button" class="chip tab" data-tab="phap-luat" aria-pressed="false">Pháp luật</button>
+              <button type="button" class="chip tab" data-tab="suc-khoe" aria-pressed="false">Sức khỏe</button>
+              <button type="button" class="chip tab" data-tab="hoc-ai" aria-pressed="false">Học AI</button>
+              <button type="button" class="chip tab" data-tab="trang-chu" aria-pressed="false">Trang chủ</button>
+            </div>
+          </div>
+          <details class="more" id="f-more">
+            <summary class="more__toggle">Lọc thêm (nguồn, ngày đăng ký, loại khách)</summary>
+            <div class="filters__row">
+              <label class="field">
+                <span class="field__label">Nguồn</span>
+                <select id="f-source"><option value="">Tất cả nguồn</option></select>
+              </label>
+              <label class="field">
+                <span class="field__label">Từ ngày</span>
+                <input id="f-from" type="date">
+              </label>
+              <label class="field">
+                <span class="field__label">Đến ngày</span>
+                <input id="f-to" type="date">
+              </label>
+              <label class="field">
+                <span class="field__label">Loại khách</span>
+                <select id="f-kind">
+                  <option value="">Tất cả</option>
+                  <option value="repeat">Đăng ký nhiều lần</option>
+                  <option value="old">Khách cũ (đăng ký nhiều lĩnh vực)</option>
+                  <option value="noemail">Chưa có email</option>
+                </select>
+              </label>
+            </div>
+          </details>
+          <div class="filters__foot">
+            <p id="result-count" class="result-count" aria-live="polite"></p>
+            <button id="f-clear" type="button" class="btn btn--link">Xóa lọc</button>
+          </div>
+        </section>
+
+        <section class="list" aria-label="Danh sách khách">
+          <div class="table-wrap">
+            <table class="table table--leads">
+              <thead>
+                <tr>
+                  <th scope="col" class="col-no">#</th>
+                  <th scope="col" class="col-cust">Khách hàng</th>
+                  <th scope="col" class="col-field">Lĩnh vực</th>
+                  <th scope="col">Nhu cầu</th>
+                  <th scope="col" class="col-src">Nguồn</th>
+                  <th scope="col" class="col-time">Đăng ký lúc</th>
+                  <th scope="col" class="col-status">Trạng thái</th>
+                  <th scope="col" class="col-act">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="lead-rows"></tbody>
+            </table>
+          </div>
+          <div id="lead-cards" class="cards"></div>
+          <div id="empty-state" class="empty" hidden>
+            <p class="empty__title" id="empty-title">Chưa có khách đăng ký</p>
+            <p class="muted" id="empty-text">Khi khách gửi form trên website, thông tin sẽ hiện ở đây.</p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ĐĂNG KÝ TRÙNG -->
+      <section id="panel-dups" class="panel" role="tabpanel" aria-labelledby="tab-dups" hidden>
+        <div class="page-head">
+          <h1 class="page-title">Đăng ký trùng</h1>
+        </div>
+        <p class="intro">Khách gửi lại form cùng lĩnh vực với cùng số điện thoại. Hệ thống không tạo khách mới mà cộng “Số lần đăng ký” vào khách cũ; nếu khách cũ đã “Hoàn tất” hoặc “Không phù hợp” thì tự đưa về “Mới”.</p>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Khách hàng</th>
+                <th scope="col">Lĩnh vực</th>
+                <th scope="col">Nội dung lần này</th>
+                <th scope="col">Lý do</th>
+                <th scope="col">Nguồn</th>
+                <th scope="col"><span class="sr-only">Mở khách</span></th>
+              </tr>
+            </thead>
+            <tbody id="dup-rows"></tbody>
+          </table>
+        </div>
+        <div id="dup-cards" class="cards"></div>
+        <div id="dup-empty" class="empty" hidden>
+          <p class="empty__title">Chưa có đăng ký trùng</p>
+          <p class="muted">Khi một khách gửi lại form cùng lĩnh vực, lần gửi đó sẽ hiện ở đây.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- PANEL CHI TIẾT -->
+  <div id="drawer-overlay" class="overlay" hidden></div>
+  <aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden>
+    <div class="drawer__head">
+      <p class="drawer__kicker">Chi tiết khách · <span id="d-id"></span></p>
+      <button id="drawer-close" type="button" class="icon-btn" aria-label="Đóng">×</button>
+    </div>
+    <div class="drawer__body">
+      <div class="d-who">
+        <h2 class="d-who__name" id="drawer-title">Chi tiết khách</h2>
+        <p class="d-who__phone" id="d-phone"></p>
+        <p class="d-who__email" id="d-email-view"></p>
+        <div class="badges" id="d-badges"></div>
+        <details class="d-edit" id="d-edit">
+          <summary class="btn btn--ghost btn--sm d-edit__toggle">Sửa họ tên / email</summary>
+          <form id="d-contact-form" class="d-edit__form" novalidate>
+            <label class="field">
+              <span class="field__label">Họ và tên</span>
+              <input id="d-name" type="text" maxlength="80" autocomplete="off">
+            </label>
+            <label class="field">
+              <span class="field__label">Email <span class="muted">(không bắt buộc)</span></span>
+              <input id="d-email" type="email" maxlength="120" autocomplete="off" spellcheck="false">
+            </label>
+            <div class="d-save">
+              <button id="d-contact-save" type="submit" class="btn btn--primary">Lưu họ tên, email</button>
+              <span id="d-contact-status" class="save-status" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </details>
+      </div>
+
+      <div class="d-actions">
+        <a id="d-call" class="btn btn--primary">Gọi</a>
+        <a id="d-zalo" class="btn btn--zalo" target="_blank" rel="noopener noreferrer">Zalo</a>
+        <a id="d-mail" class="btn btn--ghost" hidden>Gửi email</a>
+        <button id="d-copy" type="button" class="btn btn--ghost">Sao chép số</button>
+      </div>
+
+      <form id="d-form" class="d-block d-block--work" novalidate>
+        <h3 class="d-block__title">Xử lý</h3>
+        <label class="field">
+          <span class="field__label">Trạng thái</span>
+          <select id="d-status"></select>
+        </label>
+        <div class="field">
+          <label class="field__label" for="d-follow">Hẹn gọi lại</label>
+          <div class="follow">
+            <input id="d-follow" type="date">
+            <button type="button" class="btn btn--ghost btn--sm" data-follow="0">Hôm nay</button>
+            <button type="button" class="btn btn--ghost btn--sm" data-follow="1">Ngày mai</button>
+            <button type="button" class="btn btn--link btn--sm" data-follow="clear">Bỏ hẹn</button>
+          </div>
+        </div>
+        <label class="field">
+          <span class="field__label">Ghi chú nội bộ</span>
+          <textarea id="d-note" rows="4" maxlength="1000" placeholder="Ví dụ: Đã gọi lúc 9h, hẹn trao đổi chiều thứ Năm."></textarea>
+          <span class="field__hint"><span id="d-note-count">0</span>/1000 ký tự</span>
+        </label>
+        <div class="d-save">
+          <button id="d-save" type="submit" class="btn btn--primary">Lưu</button>
+          <span id="d-save-status" class="save-status" role="status" aria-live="polite"></span>
+        </div>
+        <p class="muted small" id="d-history"></p>
+      </form>
+
+      <section class="d-block" aria-labelledby="d-need-title">
+        <h3 class="d-block__title" id="d-need-title">Nhu cầu của khách</h3>
+        <p id="d-details" class="d-details"></p>
+        <dl class="d-info">
+          <div><dt>Lĩnh vực</dt><dd id="d-field"></dd></div>
+          <div><dt>Thời gian đăng ký</dt><dd id="d-time"></dd></div>
+          <div><dt>Muốn liên hệ qua</dt><dd id="d-contact"></dd></div>
+          <div><dt>Số lần đăng ký</dt><dd id="d-count"></dd></div>
+        </dl>
+        <div class="d-old" id="d-old" hidden>
+          <p class="d-old__title">Khách cũ — cùng số điện thoại đã đăng ký:</p>
+          <div class="d-old__list" id="d-old-list"></div>
+        </div>
+      </section>
+
+      <section class="d-block" aria-labelledby="d-journey-title">
+        <h3 class="d-block__title" id="d-journey-title">Nguồn &amp; hành trình trên website</h3>
+        <dl class="d-info">
+          <div><dt>Nguồn truy cập</dt><dd id="d-source"></dd></div>
+          <div><dt>Nguồn đầu tiên</dt><dd id="d-ft"></dd></div>
+          <div><dt>Thiết bị · lượt truy cập</dt><dd id="d-dev"></dd></div>
+          <div><dt>Trang đăng ký</dt><dd id="d-page"></dd></div>
+        </dl>
+        <div class="d-block__head">
+          <p class="d-sub">Các bước khách đã làm</p>
+          <button id="d-journey-retry" type="button" class="btn btn--link" hidden>Thử lại</button>
+        </div>
+        <p id="d-journey-status" class="muted" role="status" aria-live="polite"></p>
+        <div id="d-journey" class="journey"></div>
+      </section>
+
+      <section class="d-block" aria-labelledby="d-timeline-title">
+        <div class="d-block__head">
+          <h3 class="d-block__title" id="d-timeline-title">Lịch sử xử lý</h3>
+          <button id="d-timeline-retry" type="button" class="btn btn--link" hidden>Thử lại</button>
+        </div>
+        <p id="d-timeline-status" class="muted" role="status" aria-live="polite"></p>
+        <ol id="d-timeline" class="timeline"></ol>
+      </section>
+    </div>
+  </aside>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

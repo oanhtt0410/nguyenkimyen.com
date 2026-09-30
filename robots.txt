@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /google-apps-script/
+
+Sitemap: https://nguyenkimyen.com/sitemap.xml
