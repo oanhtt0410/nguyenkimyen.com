@@ -428,6 +428,9 @@ strong { font-weight: 700; }
 .section-head { max-width: 760px; margin-bottom: 40px; }
 .section-head--center { text-align: center; margin-inline: auto; }
 .section-head--center .eyebrow { justify-content: center; }
+.section-head--wide { max-width: 980px; }
+.h2-lines { text-transform: uppercase; letter-spacing: .02em; }
+.h2-lines > span { display: block; }
 
 .eyebrow {
   display: inline-flex;
