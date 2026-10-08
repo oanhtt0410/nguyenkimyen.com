@@ -1441,6 +1441,7 @@ textarea.input { min-height: 128px; resize: vertical; }
 }
 .video-meta .i { width: 20px; height: 20px; color: var(--accent); }
 .video-meta { justify-content: center; }
+.video-cta { justify-content: center; margin-top: 24px; }
 .video-inline { margin-top: 56px; }
 .video-inline > h3,
 .video-inline > p:not(.video-meta) { max-width: 760px; margin-inline: auto; text-align: center; }

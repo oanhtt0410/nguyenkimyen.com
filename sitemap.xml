@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://nguyenkimyen.com/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,12 +13,19 @@
   </url>
   <url>
     <loc>https://nguyenkimyen.com/tu-van-phap-luat/</loc>
-    <lastmod>2026-09-28</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
       <image:loc>https://nguyenkimyen.com/assets/img/nguyen-yen-chan-dung.jpg</image:loc>
     </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://nguyenkimyen.com/assets/video/noi-dieu-hom-nay-poster.jpg</video:thumbnail_loc>
+      <video:title>Nói điều hôm nay – Di chúc tự viết và điều kiện hợp pháp</video:title>
+      <video:description>Ca khúc của Luật sư Nguyễn Yến về di chúc tự viết và điều kiện để di chúc hợp pháp: di chúc chẳng phải lời ly biệt, mà là cách nói điều cần nói khi lòng còn sáng suốt, để mai sau người ở lại hiểu nhau.</video:description>
+      <video:content_loc>https://nguyenkimyen.com/assets/video/noi-dieu-hom-nay.mp4</video:content_loc>
+      <video:duration>247</video:duration>
+    </video:video>
   </url>
   <url>
     <loc>https://nguyenkimyen.com/suc-khoe-chu-dong/</loc>
