@@ -4,7 +4,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://nguyenkimyen.com/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -13,7 +13,7 @@
   </url>
   <url>
     <loc>https://nguyenkimyen.com/tu-van-phap-luat/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -25,6 +25,13 @@
       <video:description>Ca khúc của Luật sư Nguyễn Yến về di chúc tự viết và điều kiện để di chúc hợp pháp: di chúc chẳng phải lời ly biệt, mà là cách nói điều cần nói khi lòng còn sáng suốt, để mai sau người ở lại hiểu nhau.</video:description>
       <video:content_loc>https://nguyenkimyen.com/assets/video/noi-dieu-hom-nay.mp4</video:content_loc>
       <video:duration>247</video:duration>
+    </video:video>
+    <video:video>
+      <video:thumbnail_loc>https://nguyenkimyen.com/assets/video/luat-su-viet-nam-giu-sang-niem-tin-poster.jpg</video:thumbnail_loc>
+      <video:title>Luật sư Việt Nam giữ sáng niềm tin</video:title>
+      <video:description>Ca khúc của Luật sư Nguyễn Yến chào mừng kỷ niệm 81 năm Ngày truyền thống Luật sư Việt Nam (10/10/1945 – 10/10/2026): lời tri ân những người đi trước và lời nhắc giữ tận tâm, lắng nghe người dân trong từng việc nhỏ.</video:description>
+      <video:content_loc>https://nguyenkimyen.com/assets/video/luat-su-viet-nam-giu-sang-niem-tin.mp4</video:content_loc>
+      <video:duration>299</video:duration>
     </video:video>
   </url>
   <url>
